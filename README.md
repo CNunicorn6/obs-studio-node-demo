@@ -19,8 +19,14 @@ obs-studio-node: https://obsstudionodes3.streamlabs.com/osn-0.10.10-release-win6
 
 [streamlabs-obs](https://github.com/stream-labs/streamlabs-obs) : github上开源的obs软件，目前已经上线，自行百度下载，主要参考此软件进行调用
 [OBS-Studio](https://obsproject.com/zh-cn) : 同样也是github上开源的obs软件，以上两款软件对obs-studio-node都进行了一定程度的封装，不过仔细耐心的开下去还是可以讲究明白的
-[obs-studio-node-example](https://github.com/Envek/obs-studio-node-example) : 相同的obs-studio-node的demo示例
-[obs-example](https://github.com/qlteacher/obs-example) : 本实例主要参考了此demo示例，感谢作者的开源奉献
+[obs-studio-node-example](https://github.com/Envek/obs-studio-node-example) : 本实例主要参考了此demo示例，感谢作者的开源奉献（此demo做了mac系统兼容，可用作参考）
+[obs-example](https://github.com/qlteacher/obs-example) : 相同的obs-studio-node的demo示例
+```
+
+## 兼容问题
+```
+由于本人使用的windows系统的电脑，所以demo可能在mac系统兼容上做的不是很好，
+如果你使用了mac系统请引入node-window-rendering 此依赖，从而兼容mac系统（最好使用yarn引入）
 ```
 
 ## 文件说明

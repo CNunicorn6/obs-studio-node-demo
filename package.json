@@ -13,9 +13,11 @@
   "author": "",
   "license": "GPL-2.0",
   "devDependencies": {
-    "electron": "^10.2.0",
     "obs-studio-node": "https://obsstudionodes3.streamlabs.com/osn-0.10.10-release-win64.tar.gz",
     "rxjs": "^6.6.3",
     "uuid": "^8.3.0"
+  },
+  "dependencies": {
+    "electron": "^11.2.1"
   }
 }

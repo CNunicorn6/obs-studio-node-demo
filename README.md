@@ -7,8 +7,8 @@
 
 ## 环境与版本
 ```
-node: v10.6.0
-electron: v10.1.3
+node: v11.2.1
+electron: v10.2.0
 yarn: v1.22.10
 obs-studio-node: https://obsstudionodes3.streamlabs.com/osn-0.10.10-release-win64.tar.gz
 ```
@@ -28,7 +28,9 @@ obs-studio-node: https://obsstudionodes3.streamlabs.com/osn-0.10.10-release-win6
 由于本人使用的windows系统的电脑，所以demo可能在mac系统兼容上做的不是很好，
 如果你使用了mac系统请引入node-window-rendering 此依赖，从而兼容mac系统（最好使用yarn引入）
 ```
-
+  
+**<font color=#FF0000 >Windows端注意，如果你的电脑是双显卡，请在设备管理器中禁用一个，否则yarn start后可能会闪退。目前还没有找到更合适的解决方案，如何你发现了解决方案，可以分享出来。</font>**
+  
 ## 文件说明
 ```
 index.html: view页面

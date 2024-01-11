@@ -389,6 +389,17 @@ ms@2.1.2:
   resolved "https://registry.npm.taobao.org/ms/download/ms-2.1.2.tgz?cache=0&sync_timestamp=1607433988749&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fms%2Fdownload%2Fms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha1-0J0fNXtEP0kzgqjrPM0YOHKuYAk=
 
+nan@^2.14.0:
+  version "2.18.0"
+  resolved "https://nexus.chard.org.cn/repository/hjblm-npm-group/nan/-/nan-2.18.0.tgz#26a6faae7ffbeb293a39660e88a76b82e30b7554"
+  integrity sha512-W7tfG7vMOGtD30sHoZSSc/JVYiyDPEyQVso/Zz+/uQd0B0L46gtC+pHha5FFMRpil6fm/AoEcRWyOVi4+E/f8w==
+
+"node-window-rendering@https://slobs-node-window-rendering.s3-us-west-2.amazonaws.com/node-window-rendering-0.0.0.tar.gz":
+  version "1.0.0"
+  resolved "https://slobs-node-window-rendering.s3-us-west-2.amazonaws.com/node-window-rendering-0.0.0.tar.gz#114a25488e6133e712b7e6143a22a70f1b8bab57"
+  dependencies:
+    nan "^2.14.0"
+
 normalize-url@^4.1.0:
   version "4.5.0"
   resolved "https://registry.npm.taobao.org/normalize-url/download/normalize-url-4.5.0.tgz?cache=0&sync_timestamp=1602432879767&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fnormalize-url%2Fdownload%2Fnormalize-url-4.5.0.tgz#453354087e6ca96957bd8f5baf753f5982142129"
@@ -407,9 +418,10 @@ object-keys@^1.0.12:
   resolved "https://registry.npm.taobao.org/object-keys/download/object-keys-1.1.1.tgz#1c47f272df277f3b1daf061677d9c82e2322c60e"
   integrity sha1-HEfyct8nfzsdrwYWd9nILiMixg4=
 
-"obs-studio-node@https://obsstudionodes3.streamlabs.com/osn-0.10.10-release-win64.tar.gz":
+obs-studio-node@^0.10.10:
   version "0.10.10"
-  resolved "https://obsstudionodes3.streamlabs.com/osn-0.10.10-release-win64.tar.gz#0306ea8427827d579f5ae471ebab01a6d9d80598"
+  resolved "https://nexus.chard.org.cn/repository/hjblm-npm-group/obs-studio-node/-/obs-studio-node-0.10.10.tgz#8325ae1dae64f1dc0eefb09a328f7366a212be85"
+  integrity sha512-wOdtv15Acrg2+KLC62y1iA4SeHGk6P/e8FU0L0Dhf7jVXlsrVInEcXA7UWP0/OocSNEfLnF0WswelZV1ryLWDQ==
 
 once@^1.3.1, once@^1.4.0:
   version "1.4.0"

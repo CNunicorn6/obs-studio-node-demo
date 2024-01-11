@@ -13,11 +13,12 @@
   "author": "",
   "license": "GPL-2.0",
   "devDependencies": {
-    "obs-studio-node": "https://obsstudionodes3.streamlabs.com/osn-0.10.10-release-win64.tar.gz",
     "rxjs": "^6.6.3",
     "uuid": "^8.3.0"
   },
   "dependencies": {
-    "electron": "^11.2.1"
+    "electron": "^11.2.1",
+    "obs-studio-node": "^0.10.10",
+    "node-window-rendering": "https://slobs-node-window-rendering.s3-us-west-2.amazonaws.com/node-window-rendering-0.0.0.tar.gz"
   }
 }

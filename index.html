@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Hello World!</title>
-    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline';"
+    />
     <style>
       #preview {
         margin-top: 2rem;
@@ -14,10 +16,11 @@
         margin-bottom: 3rem;
         border-collapse: collapse;
       }
-      .performanceStatistics tr,td {
+      .performanceStatistics tr,
+      td {
         border-bottom: 1px solid rgb(165, 165, 165);
         border-top: 1px solid rgb(165, 165, 165);
-        padding: .5rem;
+        padding: 0.5rem;
       }
       .d-block {
         display: block;
@@ -34,33 +37,104 @@
     <h1>Hello from OBS Studio Node!</h1>
 
     <div class="d-block border">
-      <b>Recording:</b><br>
+      <b>Recording:</b><br />
       <button id="rec-button" onclick="switchRecording()">
         ⏳ Initializing, please wait...
       </button>
-      
+
       <span id="rec-timer">0:00:00.0</span>
-      
+
       <button title="Open folder with videos" onclick="openFolder()">📂</button>
     </div>
     <div class="d-block border">
-      <b>Virtual Camera:</b><br>
-      <button id="install-virtual-cam-plugin-button" onclick="installVirtualCamPlugin()">Install Plugin</button>
-      <button id="uninstall-virtual-cam-plugin-button" onclick="uninstallVirtualCamPlugin()">Uninstall Plugin</button>
-      <button id="start-virtual-cam-button" onclick="startVirtualCam()">Start Virtual Camera</button>
-      <button id="stop-virtual-cam-button" onclick="stopVirtualCam()">Stop Virtual Camera</button>
+      <b>Virtual Camera:</b><br />
+      <button
+        id="install-virtual-cam-plugin-button"
+        onclick="installVirtualCamPlugin()"
+      >
+        Install Plugin
+      </button>
+      <button
+        id="uninstall-virtual-cam-plugin-button"
+        onclick="uninstallVirtualCamPlugin()"
+      >
+        Uninstall Plugin
+      </button>
+      <button id="start-virtual-cam-button" onclick="startVirtualCam()">
+        Start Virtual Camera
+      </button>
+      <button id="stop-virtual-cam-button" onclick="stopVirtualCam()">
+        Stop Virtual Camera
+      </button>
       <span id="virtual-cam-plugin-status">...</span>
     </div>
-
-    <div id="preview">
-      Initializing...
+    <div class="d-block border">
+      <b>设置:</b><br />
+      选择显示器:
+      <select id="displaySelect" onchange="displaySelectChange()"></select>
+      <br />
+      选择摄像头:
+      <select id="cameraSelect" onchange="cameraSelectChange()"></select>
     </div>
+    <div class="d-block border">
+      <b>RTMP参数设置:</b><br />
+      rtmp_server:
+      <input id="rtmp_server" />
+      rtmp_key:
+      <input id="rtmp_key" />
+      <button id="savertmp" onclick="saveSetting()">保存配置</button>
+      <button id="streaming" onclick="streaming()">开始直播</button>
+    </div>
+    <div class="d-block border">
+      <b>
+        用于查看obs中的设置功能，可以根据obsRecorder.js中的setSetting方法修改对应的值(注意有些值需要重启软件)
+      </b><br />
+      setting分类:
+      <select id="OBSSettingsCategories">
+        <option value="General">General</option>
+        <option value="Stream">Stream</option>
+        <option value="Output">Output</option>
+        <option value="Audio">Audio</option>
+        <option value="Video">Video</option>
+        <option value="Hotkeys">Hotkeys</option>
+        <option value="Advanced">Advanced</option>
+      </select>
+
+      <button id="showSetting-button" onclick="getSetting()">控制台显示</button>
+    </div>
+    <div class="d-block border">
+      <label
+        >场景(scene):
+        <select id="sceneSelect" multiple size="5"></select>
+      </label>
+
+      <label
+        >源(source):
+        <select
+          onchange="showSourceInfo()"
+          id="sourceSelect"
+          multiple
+          size="5"
+        ></select>
+      </label>
+    </div>
+    <pre id="response"></pre>
+
+    <div id="preview">Initializing...</div>
 
     <table class="performanceStatistics">
       <tr>
         <td>CPU</td>
         <td>
-          <meter id="cpuMeter" value="0" min="0" optimum="50" low="65" high="80" max="100"></meter>
+          <meter
+            id="cpuMeter"
+            value="0"
+            min="0"
+            optimum="50"
+            low="65"
+            high="80"
+            max="100"
+          ></meter>
           <span id="cpu">Loading...</span>
         </td>
       </tr>

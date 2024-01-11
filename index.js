@@ -55,6 +55,39 @@ function createWindow() {
   ipcMain.handle("preview-bounds", (event, bounds) => {
     return obsRecorder.resizePreview(win, bounds);
   });
+  
+  ipcMain.handle('update-rtmp', (event, bounds) => {
+    return obsRecorder.udpateRtmp(win, bounds);
+  });
+  
+
+  // 开始直播/结束直播
+  ipcMain.on('toggleStreaming', (event, bounds) => {
+    event.returnValue = obsRecorder.toggleStreaming(bounds);
+  });
+
+  // 源设置
+  ipcMain.on('showSourceInfo', (event, bounds) => {
+    event.returnValue = obsRecorder.showSourceInfo(bounds);
+  });
+
+  // 显示器设置
+  ipcMain.on('selectDisPlay', (event, bounds) => {
+    event.returnValue = obsRecorder.selectDisPlay(bounds);
+  });
+
+  ipcMain.on('getAllScene', (event) => {
+    event.returnValue = obsRecorder.getAllScene();
+  });
+
+  ipcMain.on('getALlCameras', (event) => {
+    event.returnValue = obsRecorder.getALlCameras();
+  });
+
+  ipcMain.on('getSetting', (event, bounds) => {
+    event.returnValue = obsRecorder.getSetting(bounds);
+  });
+
 
   // and load the index.html of the app.
   win.loadFile("index.html");

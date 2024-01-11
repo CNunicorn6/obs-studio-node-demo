@@ -166,7 +166,7 @@ function getCameraSource() {
 
   const deviceId = cameraItems[0].value;
   cameraItems[0].selected = true;
-  console.debug("cameraItems[0].name: " + cameraItems[0].name);
+  console.debug("cameraItemsName: " + cameraItems[0].name);
 
   const obsCameraInput = byOS({
     [OS.Windows]: () =>
@@ -177,8 +177,8 @@ function getCameraSource() {
       osn.InputFactory.create("av_capture_input", "video", {
         device: deviceId,
       }),
-  }); 
-  
+  });
+
   // Set res_type to 1
   let settings = obsCameraInput.settings;
   settings["res_type"] = 1;
@@ -221,19 +221,13 @@ function setupScene() {
     let resolution = resolutionStr.split("x");
     let cameraWidth = Number(resolution[0]);
     let cameraHeight = Number(resolution[1]);
-    console.log("cameraWidth", cameraWidth);
-    console.log("cameraHeight", cameraHeight);
 
     const cameraItem = scene.add(cameraSource);
     const cameraScaleFactor = 1.0 / ((3.0 * cameraWidth) / outputWidth);
     cameraItem.scale = { x: cameraScaleFactor, y: cameraScaleFactor };
     cameraItem.position = {
-      x:
-        outputWidth - cameraWidth * cameraScaleFactor - outputWidth / 10,
-      y:
-        outputHeight -
-        cameraHeight * cameraScaleFactor -
-        outputHeight / 10,
+      x: outputWidth - cameraWidth * cameraScaleFactor - outputWidth / 10,
+      y: outputHeight - cameraHeight * cameraScaleFactor - outputHeight / 10,
     };
   }
 
@@ -518,6 +512,109 @@ function busySleep(sleepDuration) {
   }
 }
 
+// 设置显示器
+function selectDisPlay(index) {
+  const scene = osn.SceneFactory.fromName('test-scene');
+  //console.log(scene.getItems().length)
+
+  scene.getItems().map(item => {
+    //console.log(item.source.name)
+    // 删除
+    if ('desktop-video' === item.source.name) {
+      osn.InputFactory.fromName(item.source.name).release()
+      item.remove();
+    }
+  })
+
+  const videoSource = osn.InputFactory.create('monitor_capture', 'desktop-video');
+  const { physicalWidth, physicalHeight, aspectRatio } = displayInfo(index.id);
+  // Update source settings:
+  let settings = videoSource.settings;
+
+  // 这个参数修改使用哪个显示器,从0开始
+  settings['monitor'] = parseInt(index.id)
+  settings['width'] = physicalWidth;
+  settings['height'] = physicalHeight;
+  videoSource.update(settings);
+  videoSource.save();
+
+  const newitem = scene.add(videoSource);
+  const outputWidth = 1920;
+  const videoScaleFactor = physicalWidth / outputWidth;
+  const outputHeight = Math.round(outputWidth / aspectRatio);
+  setSetting('Video', 'Base', `${outputWidth}x${outputHeight}`);
+  setSetting('Video', 'Output', `${outputWidth}x${outputHeight}`);
+  newitem.scale = { x: 1.0 / videoScaleFactor, y: 1.0 / videoScaleFactor };
+  newitem.moveBottom()
+
+  scene.save()
+  return scene;
+}
+
+// 获取设置信息
+function getSetting(cate) {
+  // console.log(electron.screen.getAllDisplays())
+  return osn.NodeObs.OBS_settings_getSettings(cate.name).data;
+}
+
+// 获取摄像头数据
+function getALlCameras() {
+  const dummyInput = osn.InputFactory.create('dshow_input', 'video', {
+    audio_device_id: 'does_not_exist',
+    video_device_id: 'does_not_exist',
+  });
+
+  const cameraItems = dummyInput.properties.get('video_device_id').details.items;
+
+  dummyInput.release();
+
+  return cameraItems;
+}
+
+// 获取显示器
+function getAllScene() {
+  // 遍历 osn.Global.getOutputSource() 根据type判断 ESourceType === 3
+  //console.log(scene)
+  //console.log(scene.name)
+  return new Array({
+    name: scene.name, items: scene.getItems().map(function (item) {
+      return item.source.name;
+    })
+  });
+  // return new Array(scene);
+}
+
+// 设置并展示源数据
+function showSourceInfo(name) {
+  return scene.getItems().filter(item => {
+    return name.id == item.source.name
+  }).map(item => {
+    let r = { name: item.source.name, width: item.source.width, height: item.source.height, x: item.position.x, y: item.position.y, visible: item.visible };
+    console.log(r)
+    return r;
+  })
+}
+
+// 修改流地址
+function udpateRtmp(window, settings) {
+
+  // 设置流地址和key
+  setSetting('Stream', 'server', settings.server)
+  setSetting('Stream', 'key', settings.key)
+  return true;
+
+}
+
+// 开始直播和结束直播
+function toggleStreaming(state) {
+  console.debug('streamingState:',state)
+  if (!state) {
+    osn.NodeObs.OBS_service_startStreaming();
+  } else {
+    osn.NodeObs.OBS_service_stopStreaming(true);
+  }
+}
+
 module.exports.initialize = initialize;
 module.exports.start = start;
 module.exports.isVirtualCamPluginInstalled = isVirtualCamPluginInstalled;
@@ -529,3 +626,10 @@ module.exports.stop = stop;
 module.exports.shutdown = shutdown;
 module.exports.setupPreview = setupPreview;
 module.exports.resizePreview = resizePreview;
+module.exports.selectDisPlay = selectDisPlay;
+module.exports.getSetting = getSetting;
+module.exports.getALlCameras = getALlCameras;
+module.exports.getAllScene = getAllScene;
+module.exports.showSourceInfo = showSourceInfo;
+module.exports.udpateRtmp = udpateRtmp;
+module.exports.toggleStreaming = toggleStreaming;

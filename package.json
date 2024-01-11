@@ -17,8 +17,8 @@
     "uuid": "^8.3.0"
   },
   "dependencies": {
-    "electron": "^11.2.1",
-    "obs-studio-node": "^0.10.10",
-    "node-window-rendering": "https://slobs-node-window-rendering.s3-us-west-2.amazonaws.com/node-window-rendering-0.0.0.tar.gz"
+    "electron": "^10.2.0",
+    "node-window-rendering": "https://slobs-node-window-rendering.s3-us-west-2.amazonaws.com/node-window-rendering-0.0.0.tar.gz",
+    "obs-studio-node": "https://s3-us-west-2.amazonaws.com/obsstudionodes3.streamlabs.com/osn-0.15.6-release-win64.tar.gz"
   }
 }
